@@ -33,15 +33,10 @@ class _RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    //final wordPair = WordPair.random(); // Delete these...
-    //return Text(wordPair.asPascalCase); // ... two lines.
-
-    return Scaffold (                     // Add from here...
-      appBar: AppBar(
-        title: Text('Startup Name Generator'),
-      ),
-      body: _buildSuggestions(),
-    );                                      // ... to here.
+    return MaterialApp(
+      title: 'Startup Name Generator',
+      home: RandomWords(),
+    );
   }
 
   //this is a private method!
