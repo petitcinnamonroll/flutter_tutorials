@@ -5,15 +5,16 @@ void main() => runApp(MyApp());
 
 // #docregion MyApp
 class MyApp extends StatelessWidget {
-  // #docregion build
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Startup Name Generator',
+      theme: ThemeData(          // Add the 3 lines from here...
+        primaryColor: Colors.white,
+      ),                         // ... to here.
       home: RandomWords(),
     );
   }
-// #enddocregion build
 }
 // #enddocregion MyApp
 
@@ -76,6 +77,36 @@ class _RandomWordsState extends State<RandomWords> {
         ],
       ),
       body: _buildSuggestions(),
+    );
+  }
+
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        // NEW lines from here...
+        builder: (BuildContext context) {
+          final tiles = _saved.map(
+                (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = tiles.isNotEmpty
+              ? ListTile.divideTiles(context: context, tiles: tiles).toList()
+              : <Widget>[];
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Saved Suggestions'),
+            ),
+            body: ListView(children: divided),
+          );
+        }, // ...to here.
+      ),
     );
   }
 // #enddocregion RWS-build
